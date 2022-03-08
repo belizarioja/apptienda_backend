@@ -43,8 +43,8 @@ app.get(config.servidor + '/files/:img', function (req, res) {
   const img = req.params.img
   const path = __dirname + '/files/' + img
   if (fs.existsSync(path)) {
-    // const imgbase64 = fs.readFileSync(path, { encoding: 'base64' })
-    res.sendFile(path)
+    const imgbase64 = fs.readFileSync(path, { encoding: 'base64' })
+    // res.sendFile(path)
     res.status(200).send({ imgbase64, message: 'Imagen encontrada!' })
   } else {
     res.status(202).send({ message: 'Imagen no encontrada!' })
@@ -64,7 +64,7 @@ app.post(config.servidor + '/upload', (req, res) => {
     }
   })
 })
-const PORT = process.env.PORT || 4001
+const PORT = config.PORT
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 })
