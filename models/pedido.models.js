@@ -62,21 +62,6 @@ router.post(config.servidor + '/setitemcarrito', async function (req, res) {
         }
     });
 });
-/* router.post(config.servidor + '/getitemcarrito', async function (req, res) {
-    const { idhold } = req.body;
-    const sql = "select * from hold_items where idhold = ?";
-    await conexion.query(sql, [idhold], function (err, rows) {
-        if (!err) {
-            res.send(rows);
-        } else {
-            res.json({
-                message: "Error consultando Item holds",
-                resp: err,
-                status: 500
-            });
-        }
-    })
-}); */
 router.post(config.servidor + '/setpedido', async function (req, res) {
     const {
         idusuario, usuario, idcliente, nombrecliente, rifcliente, total, idsucursal, itemsPedido, comentario
@@ -159,7 +144,7 @@ router.post(config.servidor + '/setpedido', async function (req, res) {
             values += " ?)"
             // console.log(insert)
             // console.log(values)
-            conexion2.query(insert + values, arrayvalues, function (err, rows) {
+            conexion.query(insert + values, arrayvalues, function (err, rows) {
                 if (!err) {
                     //console.log(rows)
                     let subtotal = 0
@@ -235,7 +220,7 @@ router.post(config.servidor + '/setpedido', async function (req, res) {
                         valuesitems += " ?)"
                         // console.log(insertitem)
                         // console.log(valuesitems)
-                        conexion2.query(insertitem + valuesitems, arrayvaluesitems, function (err, rows) {
+                        conexion.query(insertitem + valuesitems, arrayvaluesitems, function (err, rows) {
                             if (err) {
                                 res.json({
                                     message: "Error insertando item pedido SEUZ : ",
@@ -270,7 +255,7 @@ router.post(config.servidor + '/setpedido', async function (req, res) {
                     conexion.query(update + where, [pediv_numedocu, subtotal, idpedido], function (err, rows) {
                         if (!err) {
                             res.json({
-                                message: "Pedido actualizado y enviado a SEUZ",
+                                message: "Pedido actualizado y enviado a AppTienda",
                                 status: 200
                             });
                         } else {
@@ -283,7 +268,7 @@ router.post(config.servidor + '/setpedido', async function (req, res) {
                     })
                 } else {
                     res.json({
-                        message: "Error creando pedido SEUZ : ",
+                        message: "Error creando pedido AppTienda : ",
                         resp: err,
                         status: 500
                     });

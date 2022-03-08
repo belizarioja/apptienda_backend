@@ -64,7 +64,7 @@ app.post(config.servidor + '/upload', (req, res) => {
     }
   })
 })
-const PORT = process.env.PORT || 4002
+const PORT = config.PORT
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 })
