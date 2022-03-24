@@ -10,27 +10,15 @@ var corsOptions = {
 };
 
 app.use(fileUpload())
-// parse requests of content-type - application/json
-// app.use(express.json());
 app.use(express.json({ limit: '100mb' }));
 app.use(cors(corsOptions));
 // app.use(express.urlencoded({ limit: '50mb' }));
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-const usermodel = require("./models/user.models");
-const clientemodel = require("./models/cliente.models");
-const categoriamodel = require("./models/categoria.models");
-const productomodel = require("./models/producto.models");
-const pedidomodel = require("./models/pedido.models");
-const vendedormodel = require("./models/vendedor.models");
+const usermodel = require("./models/user.models")
 
-app.use(usermodel);
-app.use(clientemodel);
-app.use(categoriamodel);
-app.use(productomodel);
-app.use(pedidomodel);
-app.use(vendedormodel);
+app.use(usermodel)
 app.post(config.servidor + '/deletefiles', function (req, res) {
   const { img } = req.body
   const pathViejo = __dirname + '/files/' + img
